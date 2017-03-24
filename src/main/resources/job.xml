@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GBK"?>
+<jobs>
+    <job>
+        <!--任务名称-->
+        <jobName>TestStandardJob</jobName>
+        <!--任务组-->
+        <jobGroup>TestGroup</jobGroup>
+        <!--启动时间，为0立即启动 (启动时间格式为：yyyy-MM-dd HH:mm:ss) -->
+        <jobStartTime>0</jobStartTime>
+        <!--任务类型，0：简单型 1：支持cron表达式-->
+        <jobType>1</jobType>
+        <!--任务实现类-->
+        <jobClassName>com.truncate.simple.timer.test.TestStandardJob</jobClassName>
+        <!--任务cron表达式-->
+        <jobCronExpress>0/1 * * * * ?</jobCronExpress>
+        <!--任务状态 0：不执行 1：执行 -->
+        <jobStatus>1</jobStatus>
+        <!--任务描述-->
+        <jobDescription>测试标准定时任务</jobDescription>
+    </job>
+
+    <job>
+        <!--任务名称-->
+        <jobName>TestSimleJob</jobName>
+        <!--任务组-->
+        <jobGroup>TestGroup</jobGroup>
+        <!--启动时间，为0立即启动 (启动时间格式为：yyyy-MM-dd HH:mm:ss) -->
+        <jobStartTime>0</jobStartTime>
+        <!--任务类型，0：简单型 1：支持cron表达式-->
+        <jobType>0</jobType>
+        <!--任务实现类-->
+        <jobClassName>com.truncate.simple.timer.test.TestSimleJob</jobClassName>
+        <!--任务执行间隔时间-->
+        <jobIntervalSecond>1</jobIntervalSecond>
+        <!--任务重复次数 小于等于0为永久执行 -->
+        <jobRepeatCount>-1</jobRepeatCount>
+        <!--任务状态 0：不执行 1：执行 -->
+        <jobStatus>1</jobStatus>
+        <!--任务描述-->
+        <jobDescription>测试简单定时任务</jobDescription>
+    </job>
+</jobs>
