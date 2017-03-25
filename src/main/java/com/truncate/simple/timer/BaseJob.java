@@ -1,5 +1,8 @@
 package com.truncate.simple.timer;
 
+import org.quartz.JobDetail;
+import org.quartz.Trigger;
+
 import java.util.Date;
 
 /**
@@ -14,25 +17,31 @@ public class BaseJob
 {
 
 	//任务名称
-	protected String jobName;
+	private String jobName;
 
 	//任务组
-	protected String jobGroup;
+	private String jobGroup;
 
 	//job开始时间
-	protected Date jobStartTime;
+	private Date jobStartTime;
 
 	//job类型
-	protected String jobType;
+	private String jobType;
 
 	//job实现类
-	protected String jobClassName;
+	private String jobClassName;
 
 	//job状态
-	protected String jobStatus;
+	private String jobStatus;
 
 	//job描述
-	protected String jobDescription;
+	private String jobDescription;
+
+	//任务详情
+	private JobDetail jobDetail;
+
+	//任务触发器
+	private Trigger trigger;
 
 	public String getJobName()
 	{
@@ -67,6 +76,31 @@ public class BaseJob
 	public String getJobType()
 	{
 		return jobType;
+	}
+
+	public void setJobType(String jobType)
+	{
+		this.jobType = jobType;
+	}
+
+	public void setJobDetail(JobDetail jobDetail)
+	{
+		this.jobDetail = jobDetail;
+	}
+
+	public void setTrigger(Trigger trigger)
+	{
+		this.trigger = trigger;
+	}
+
+	public JobDetail getJobDetail()
+	{
+		return jobDetail;
+	}
+
+	public Trigger getTrigger()
+	{
+		return trigger;
 	}
 
 	public String getJobClassName()

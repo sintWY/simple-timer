@@ -19,7 +19,7 @@ public class SimpleJob extends BaseJob
 
 	public SimpleJob()
 	{
-		this.jobType = JobConstant.JobType.SIMPLE_JOB_TYPE;
+		setJobType(JobConstant.JobType.SIMPLE_JOB_TYPE);
 	}
 
 	public int getJobRepeatCount()

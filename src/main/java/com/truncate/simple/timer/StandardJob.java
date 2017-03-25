@@ -16,7 +16,7 @@ public class StandardJob extends BaseJob
 
 	public StandardJob()
 	{
-		this.jobType = JobConstant.JobType.STANDARD_JOB_TYPE;
+		setJobType(JobConstant.JobType.STANDARD_JOB_TYPE);
 	}
 
 	public String getJobCronExpress()

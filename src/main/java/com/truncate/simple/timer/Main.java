@@ -1,5 +1,9 @@
 package com.truncate.simple.timer;
 
+import com.truncate.simple.timer.watchdog.FileWatchdog;
+import com.truncate.simple.timer.watchdog.IChangeService;
+import com.truncate.simple.timer.watchdog.JobXmlChangeServiceImpl;
+
 /**
  * √Ë ˆ:
  * ∞Ê»®: Copyright (c) 2017
@@ -11,8 +15,12 @@ package com.truncate.simple.timer;
 public class Main
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws InterruptedException
 	{
 		JobManager.startJob();
+
+		IChangeService changeService = new JobXmlChangeServiceImpl();
+		FileWatchdog fileWatchdog = new FileWatchdog("D:\\idea_workspace\\simpletimer\\target\\classes\\job.xml", 20, changeService);
+		fileWatchdog.start();
 	}
 }
