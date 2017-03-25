@@ -7,13 +7,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * 描述: 文件监听
+ * 描述: 文件监听类
  * 版权: Copyright (c) 2017
- * 公司: 思迪科技 
- * 作者: 王功俊(wanggj@thinkive.com)
- * 版本: 1.0 
+ * 作者: truncate(wy940407@163.com)
+ * 版本: 1.0
  * 创建日期: 2017年03月25日
- * 创建时间: 2:01
+ * 创建时间: 0:52
  */
 public class FileWatchdog extends Thread
 {
