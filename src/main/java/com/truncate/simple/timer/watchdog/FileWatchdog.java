@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * 描述: 文件监听类
+ * 描述: 文件监听类 默认是根据文件的修改事件判断是否变化
  * 版权: Copyright (c) 2017
  * 作者: truncate(wy940407@163.com)
  * 版本: 1.0
  * 创建日期: 2017年03月25日
  * 创建时间: 0:52
  */
-public class FileWatchdog extends Thread
+public abstract class FileWatchdog extends WatchdogListening
 {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileWatchdog.class);
@@ -25,24 +25,12 @@ public class FileWatchdog extends Thread
 	//文件最后修改时间
 	private long lastModifyTime;
 
-	//检测间隔时间
-	private long delayTime;
-
 	//文件
 	private File file;
 
-	//是否启动检测
-	private volatile boolean isShutdown = false;
-
-	//文件发生变动发生的逻辑 需要实现接口IChangeService
-	private IChangeService changeService;
-
-	public FileWatchdog(String filePath, long delayTime, IChangeService changeService)
+	public FileWatchdog(String filePath)
 	{
 		this.filePath = filePath;
-		this.delayTime = delayTime;
-		this.file = new File(filePath);
-		this.changeService = changeService;
 		init();
 	}
 
@@ -50,47 +38,24 @@ public class FileWatchdog extends Thread
 	{
 		if(StringUtils.isEmpty(filePath))
 		{
-			isShutdown = true;
-			throw new IllegalArgumentException("文件路径不能为空!");
+			throw new IllegalArgumentException("文件名称不能为空!");
 		}
-		if(this.file.exists())
+		this.file = new File(filePath);
+		if(!file.exists())
 		{
-			lastModifyTime = file.lastModified();
-		}
-		else
-		{
-			isShutdown = true;
 			throw new IllegalArgumentException("文件[" + filePath + "]不存在!");
 		}
+		this.lastModifyTime = file.lastModified();
 	}
 
 	@Override
-	public void run()
+	boolean isChange()
 	{
-		while(!isShutdown)
+		boolean isChange = file.lastModified() > lastModifyTime;
+		if(logger.isDebugEnabled())
 		{
-			if(file.lastModified() > lastModifyTime)
-			{
-				//有过修改,出发对应的逻辑
-				boolean success = changeService.doChange();
-				if(success)
-				{
-					lastModifyTime = file.lastModified();
-				}
-
-				if(logger.isDebugEnabled())
-				{
-					logger.debug("文件[{}]内容发生变动，触发事件返回结果：{}", filePath, success);
-				}
-
-				try
-				{
-					Thread.sleep(delayTime * 1000);
-				}
-				catch(InterruptedException e)
-				{
-				}
-			}
+			logger.debug("文件[" + filePath + "]内容是否发生变动：" + isChange);
 		}
+		return isChange;
 	}
 }
